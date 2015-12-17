@@ -1,10 +1,11 @@
 package iptat.gui;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Polygon;
 
 import javax.swing.JPanel;
+
+import iptat.listeners.MouseEventListener;
 
 public class DrawingBoard extends JPanel {
 	
@@ -12,10 +13,12 @@ public class DrawingBoard extends JPanel {
 	
 	public DrawingBoard() {
 		polygon = new Polygon();
+		this.addMouseListener(new MouseEventListener(this, polygon));
 	}
 	
 	@Override
 	protected void paintComponent(Graphics graphics) {
-		super.paintComponent((Graphics2D) graphics);
+		super.paintComponent(graphics);
+		graphics.drawPolygon(polygon);
 	}
 }
