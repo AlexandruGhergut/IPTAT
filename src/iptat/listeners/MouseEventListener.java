@@ -1,17 +1,18 @@
 package iptat.listeners;
 
-import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import ipstat.util.Polygon2D;
+
 public class MouseEventListener implements MouseListener {
 	
 	private JPanel panel;
-	private Polygon polygon;
+	private Polygon2D polygon;
 	
-	public MouseEventListener(JPanel panel, Polygon polygon) {
+	public MouseEventListener(JPanel panel, Polygon2D polygon) {
 		this.panel = panel;
 		this.polygon = polygon;
 	}
