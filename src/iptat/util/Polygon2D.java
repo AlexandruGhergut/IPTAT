@@ -1,12 +1,15 @@
 package iptat.util;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Polygon2D {
+	
+	private final static double RADIUS = 6;
 	
 	private List<Point2D.Double> points;
 	private List<Line2D.Double> edges;
@@ -39,6 +42,10 @@ public class Polygon2D {
 	public void draw(Graphics2D g) {
 		for (Line2D.Double edge: edges)
 			g.draw(edge);
+		
+		// emphasize points by drawing circles centered on them
+		for (Point2D.Double point: points)
+			g.fill(new Ellipse2D.Double(point.getX() - RADIUS / 2, point.getY() - RADIUS / 2, RADIUS, RADIUS));
 		
 		// draw a line between the first point and the last
 		if (points.size() >= 3) {

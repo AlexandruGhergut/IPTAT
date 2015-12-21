@@ -23,6 +23,7 @@ public class UserInterface implements Runnable {
 		createComponents(frame.getContentPane());
 		
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 	
