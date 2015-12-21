@@ -19,7 +19,7 @@ public class MouseEventListener implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		polygon.addPoint(e.getX(), e.getY());
-		//panel.revalidate();
+
 		panel.repaint();
 	}
 

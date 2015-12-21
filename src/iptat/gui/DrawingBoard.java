@@ -1,5 +1,6 @@
 package iptat.gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
@@ -12,8 +13,10 @@ public class DrawingBoard extends JPanel {
 	private Polygon polygon;
 	
 	public DrawingBoard() {
+		super.setBackground(Color.WHITE);
+		
 		polygon = new Polygon();
-		this.addMouseListener(new MouseEventListener(this, polygon));
+		super.addMouseListener(new MouseEventListener(this, polygon));
 	}
 	
 	@Override
