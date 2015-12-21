@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import ipstat.util.Polygon2D;
+import iptat.util.Polygon2D;
 
 public class MouseEventListener implements MouseListener {
 	

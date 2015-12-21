@@ -1,4 +1,4 @@
-package ipstat.util;
+package iptat.util;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
