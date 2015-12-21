@@ -7,8 +7,9 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
+import iptat.handlers.KeyBindingsHandler;
+import iptat.handlers.MouseEventHandler;
 import iptat.util.Polygon2D;
-import iptat.listeners.MouseEventListener;
 
 public class DrawingBoard extends JPanel {
 	
@@ -18,7 +19,9 @@ public class DrawingBoard extends JPanel {
 		super.setBackground(Color.WHITE);
 		
 		polygon = new Polygon2D();
-		super.addMouseListener(new MouseEventListener(this, polygon));
+		
+		super.addMouseListener(new MouseEventHandler(this));
+		KeyBindingsHandler.init(this);
 	}
 	
 	@Override
@@ -26,6 +29,7 @@ public class DrawingBoard extends JPanel {
 		super.paintComponent(graphics);
 
 		Graphics2D g2 = (Graphics2D) graphics;
+		
 		// draw with sub-pixel precision
 		g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
@@ -35,5 +39,9 @@ public class DrawingBoard extends JPanel {
 	
 	public Polygon2D getPolygon() {
 		return polygon;
+	}
+	
+	public void setPolygon(Polygon2D polygon) {
+		this.polygon = polygon;
 	}
 }

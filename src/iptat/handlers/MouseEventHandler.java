@@ -1,27 +1,23 @@
-package iptat.listeners;
+package iptat.handlers;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JPanel;
+import iptat.gui.DrawingBoard;
 
-import iptat.util.Polygon2D;
-
-public class MouseEventListener implements MouseListener {
+public class MouseEventHandler implements MouseListener {
 	
-	private JPanel panel;
-	private Polygon2D polygon;
+	private DrawingBoard drawingBoard;
 	
-	public MouseEventListener(JPanel panel, Polygon2D polygon) {
-		this.panel = panel;
-		this.polygon = polygon;
+	public MouseEventHandler(DrawingBoard drawingBoard) {
+		this.drawingBoard = drawingBoard;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		polygon.addPoint(e.getX(), e.getY());
+		drawingBoard.getPolygon().addPoint(e.getX(), e.getY());
 
-		panel.repaint();
+		drawingBoard.repaint();
 	}
 
 	@Override
