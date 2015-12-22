@@ -34,6 +34,8 @@ public class DrawingBoard extends JPanel {
 		g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 		
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		polygon.draw(g2);
 	}
 	
