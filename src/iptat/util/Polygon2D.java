@@ -6,9 +6,10 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Stack;
 
-public class Polygon2D {
+public class Polygon2D extends Observable {
 	
 	private final static double RADIUS = 6;
 	
@@ -24,6 +25,11 @@ public class Polygon2D {
 		redoEdges = new Stack<Line2D.Double>();
 	}
 	
+	private void markForUpdate() {
+		super.setChanged();
+		super.notifyObservers();
+	}
+	
 	public void addPoint(Point2D.Double point) {
 		if (points.size() >= 1) // we need at least 2 points to begin construction of edges list
 			edges.add(new Line2D.Double(points.get(points.size() - 1), point));
@@ -32,6 +38,7 @@ public class Polygon2D {
 		
 		redoPoints.clear();
 		redoEdges.clear();
+		markForUpdate();
 	}
 	
 	public void addPoint(double x, double y) {
@@ -39,18 +46,21 @@ public class Polygon2D {
 		addPoint(point);
 	}
 	
+	// removes the last added point
 	public boolean removeLast() {
 		if (!points.isEmpty()) {
 			redoPoints.push(points.removeLast());
 			if (!edges.isEmpty())
 				redoEdges.push(edges.removeLast());
 			
+			markForUpdate();
 			return true;
 		}
 		
 		return false;
 	}
 	
+	// restores the last removed point
 	public boolean restoreLast() {
 		if (!redoPoints.empty()) {
 			points.add(redoPoints.pop());
@@ -58,6 +68,7 @@ public class Polygon2D {
 			if (points.size() > 1)
 				edges.add(redoEdges.pop());
 			
+			markForUpdate();
 			return true;
 		}
 		

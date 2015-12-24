@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.Observer;
 
 import javax.swing.JPanel;
 
@@ -11,14 +12,14 @@ import iptat.handlers.KeyBindingsHandler;
 import iptat.handlers.MouseEventHandler;
 import iptat.util.Polygon2D;
 
-public class DrawingBoard extends JPanel {
+public class DrawingBoard extends JPanel implements Observer {
 	
 	private Polygon2D polygon;
 	
 	public DrawingBoard() {
 		super.setBackground(Color.WHITE);
 		
-		polygon = new Polygon2D();
+		setPolygon(new Polygon2D());
 		
 		super.addMouseListener(new MouseEventHandler(this));
 		KeyBindingsHandler.init(this);
@@ -44,6 +45,16 @@ public class DrawingBoard extends JPanel {
 	}
 	
 	public void setPolygon(Polygon2D polygon) {
+		polygon.deleteObserver(this);
+		
 		this.polygon = polygon;
+		polygon.addObserver(this);
+		
+		update(polygon, null);
+	}
+
+	@Override
+	public void update(java.util.Observable o, Object arg) {
+		repaint();
 	}
 }

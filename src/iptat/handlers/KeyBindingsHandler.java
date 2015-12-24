@@ -24,7 +24,6 @@ public class KeyBindingsHandler {
 		Action reset = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				drawingBoard.setPolygon(new Polygon2D());
-				drawingBoard.repaint();
 			}
 		};
 		
@@ -34,7 +33,6 @@ public class KeyBindingsHandler {
 		Action undo = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				drawingBoard.getPolygon().removeLast();
-				drawingBoard.repaint();
 			}
 		};
 		
@@ -44,7 +42,6 @@ public class KeyBindingsHandler {
 		Action redo = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				drawingBoard.getPolygon().restoreLast();
-				drawingBoard.repaint();
 			}
 		};
 		
