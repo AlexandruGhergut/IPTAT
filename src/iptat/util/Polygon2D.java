@@ -4,14 +4,16 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Stack;
 
-public class Polygon2D extends Observable {
+public class Polygon2D implements Subject {
 	
 	private final static double RADIUS = 6;
+	
+	private List<Observer> observers;
 	
 	private LinkedList<Point2D.Double> points;
 	private LinkedList<Line2D.Double> edges;
@@ -19,15 +21,11 @@ public class Polygon2D extends Observable {
 	private Stack<Line2D.Double> redoEdges;
 	
 	public Polygon2D() {
+		observers = new ArrayList<Observer>();
 		points = new LinkedList<Point2D.Double>();
 		edges = new LinkedList<Line2D.Double>();
 		redoPoints = new Stack<Point2D.Double>();
 		redoEdges = new Stack<Line2D.Double>();
-	}
-	
-	private void markForUpdate() {
-		super.setChanged();
-		super.notifyObservers();
 	}
 	
 	public void addPoint(Point2D.Double point) {
@@ -36,9 +34,10 @@ public class Polygon2D extends Observable {
 		
 		points.add(point);
 		
+		notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
+		
 		redoPoints.clear();
 		redoEdges.clear();
-		markForUpdate();
 	}
 	
 	public void addPoint(double x, double y) {
@@ -53,7 +52,7 @@ public class Polygon2D extends Observable {
 			if (!edges.isEmpty())
 				redoEdges.push(edges.removeLast());
 			
-			markForUpdate();
+			notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
 			return true;
 		}
 		
@@ -68,7 +67,7 @@ public class Polygon2D extends Observable {
 			if (points.size() > 1)
 				edges.add(redoEdges.pop());
 			
-			markForUpdate();
+			notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
 			return true;
 		}
 		
@@ -81,6 +80,10 @@ public class Polygon2D extends Observable {
 	
 	public List<Line2D.Double> getEdgesList() {
 		return edges;
+	}
+	
+	public int getPointsCount() {
+		return points.size();
 	}
 	
 	public void draw(Graphics2D g) {
@@ -97,5 +100,23 @@ public class Polygon2D extends Observable {
 			int lastIndex = points.size() - 1;
 			g.draw(new Line2D.Double(points.get(lastIndex), points.get(0)));
 		}
+	}
+
+	@Override
+	public void addObserver(Observer ob) {
+		observers.add(ob);
+	}
+
+	@Override
+	public void removeObserver(Observer ob) {
+		int index = observers.indexOf(ob);
+		if (index != -1)
+			observers.remove(index);
+	}
+
+	@Override
+	public void notifyObservers(int state) {
+		for (Observer ob: observers)
+			ob.update(state);
 	}
 }

@@ -2,10 +2,12 @@ package iptat.handlers;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import iptat.gui.DrawingBoard;
+import iptat.util.ObserverConstants;
 
-public class MouseEventHandler implements MouseListener {
+public class MouseEventHandler implements MouseListener, MouseMotionListener {
 	
 	private DrawingBoard drawingBoard;
 	
@@ -32,6 +34,17 @@ public class MouseEventHandler implements MouseListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		drawingBoard.update(ObserverConstants.CURSOR_POS_UPDATE);
 	}
 
 }

@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-
 public class Toolbar extends JToolBar {
 	
 	private final int IMAGE_SIZE = 16;

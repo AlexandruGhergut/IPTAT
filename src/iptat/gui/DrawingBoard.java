@@ -4,24 +4,33 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.Observer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
 import iptat.handlers.KeyBindingsHandler;
 import iptat.handlers.MouseEventHandler;
+import iptat.util.Observer;
+import iptat.util.ObserverConstants;
 import iptat.util.Polygon2D;
+import iptat.util.Subject;
 
-public class DrawingBoard extends JPanel implements Observer {
+public class DrawingBoard extends JPanel implements Subject, Observer {
+	
+	private List<Observer> observers;
 	
 	private Polygon2D polygon;
 	
 	public DrawingBoard() {
 		super.setBackground(Color.WHITE);
 		
+		observers = new ArrayList<Observer>();
 		setPolygon(new Polygon2D());
 		
-		super.addMouseListener(new MouseEventHandler(this));
+		MouseEventHandler mouseHandler = new MouseEventHandler(this);
+		super.addMouseListener(mouseHandler);
+		super.addMouseMotionListener(mouseHandler);
 		KeyBindingsHandler.init(this);
 	}
 	
@@ -45,16 +54,37 @@ public class DrawingBoard extends JPanel implements Observer {
 	}
 	
 	public void setPolygon(Polygon2D polygon) {
-		polygon.deleteObserver(this);
+		polygon.removeObserver(this);
 		
 		this.polygon = polygon;
 		polygon.addObserver(this);
 		
-		update(polygon, null);
+		update(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 
 	@Override
-	public void update(java.util.Observable o, Object arg) {
-		repaint();
+	public void update(int state) {
+		if (state == ObserverConstants.DRAWBOARD_REPAINT)
+			repaint();
+		
+		notifyObservers(state);
+	}
+
+	@Override
+	public void addObserver(Observer ob) {
+		observers.add(ob);
+	}
+
+	@Override
+	public void removeObserver(Observer ob) {
+		int index = observers.indexOf(ob);
+		if (index != -1)
+			observers.remove(ob);
+	}
+
+	@Override
+	public void notifyObservers(int state) {
+		for (Observer ob: observers) 
+			ob.update(state);
 	}
 }
