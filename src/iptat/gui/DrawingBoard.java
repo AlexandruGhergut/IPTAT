@@ -3,6 +3,7 @@ package iptat.gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -23,6 +24,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	private List<Observer> observers;
 	
 	private Polygon2D polygon;
+	private Point2D.Double cursorPosition;
 	
 	public DrawingBoard() {
 		super.setBackground(Color.WHITE);
@@ -34,6 +36,8 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		super.addMouseListener(mouseHandler);
 		super.addMouseMotionListener(mouseHandler);
 		KeyBindingsHandler.init(this);
+		
+		cursorPosition = new Point2D.Double(0, 0);
 	}
 	
 	@Override
@@ -91,5 +95,13 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	public void notifyObservers(int state) {
 		for (Observer ob: observers) 
 			ob.update(state);
+	}
+	
+	public Point2D.Double getCursorPosition() {
+		return cursorPosition;
+	}
+	
+	public void setCursorPosition(Point2D.Double point) {
+		cursorPosition = point;
 	}
 }

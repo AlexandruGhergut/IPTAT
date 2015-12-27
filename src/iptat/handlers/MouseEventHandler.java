@@ -3,6 +3,7 @@ package iptat.handlers;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
 
 import iptat.gui.DrawingBoard;
 import iptat.util.ObserverConstants;
@@ -44,6 +45,8 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		Point2D.Double point = new Point2D.Double(e.getX(), e.getY());
+		drawingBoard.setCursorPosition(point);
 		drawingBoard.update(ObserverConstants.CURSOR_POS_UPDATE);
 	}
 
