@@ -25,7 +25,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		drawingBoard.getPolygon().addPoint(e.getX(), e.getY());
+		drawingBoard.getPolygon().addPoint(e.getX(), -e.getY());
 	}
 
 	@Override

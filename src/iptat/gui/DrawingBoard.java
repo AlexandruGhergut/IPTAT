@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 
 		Graphics2D g2 = (Graphics2D) graphics;
 		
+		AffineTransform transformer = g2.getTransform();
+		transformer.scale( 1.0, -1.0 );
+		g2.setTransform(transformer);
 		// draw with sub-pixel precision
 		g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);

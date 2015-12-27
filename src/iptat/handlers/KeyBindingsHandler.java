@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
 import iptat.gui.DrawingBoard;
+import iptat.util.Earcutting;
 import iptat.util.Polygon2D;
 
 public class KeyBindingsHandler {
@@ -47,5 +48,16 @@ public class KeyBindingsHandler {
 		
 		inputMap.put(KeyStroke.getKeyStroke("control X"), "redo");
 		actionMap.put("redo", redo);
+		
+		Action triangulate = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				Polygon2D polygon = drawingBoard.getPolygon();
+				if (!polygon.isTriangulated())
+					polygon.setTriangulation(Earcutting.earcutting(polygon));
+			}
+		};
+		
+		inputMap.put(KeyStroke.getKeyStroke("T"), "triangulate");
+		actionMap.put("triangulate", triangulate);
 	}
 }
