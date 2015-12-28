@@ -1,6 +1,7 @@
 package iptat.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
@@ -47,8 +48,13 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		Graphics2D g2 = (Graphics2D) graphics;
 		
 		AffineTransform transformer = g2.getTransform();
-		transformer.scale( 1.0, -1.0 );
+		// set origin to center of the drawingboard
+		transformer.translate(super.getWidth() / 2, super.getHeight() / 2);
+		// flip Y-axis
+		transformer.scale(1.0, -1.0); // flip Y axis
+		
 		g2.setTransform(transformer);
+		
 		// draw with sub-pixel precision
 		g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);

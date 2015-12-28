@@ -12,6 +12,14 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
 	
 	private DrawingBoard drawingBoard;
 	
+	private Point2D.Double getPointOnBoard(MouseEvent e) {
+		Point2D.Double point = new Point2D.Double();
+		double x = e.getX() - drawingBoard.getWidth() / 2;
+		double y = drawingBoard.getHeight() / 2 - e.getY();
+		point.setLocation(x, y);
+		return point;
+	}
+	
 	public MouseEventHandler(DrawingBoard drawingBoard) {
 		this.drawingBoard = drawingBoard;
 	}
@@ -26,7 +34,7 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		drawingBoard.getPolygon().addPoint(e.getX(), -e.getY());
+		drawingBoard.getPolygon().addPoint(getPointOnBoard(e));
 	}
 
 	@Override
@@ -39,14 +47,11 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		Point2D.Double point = new Point2D.Double(e.getX(), e.getY());
-		drawingBoard.setCursorPosition(point);
+		drawingBoard.setCursorPosition(getPointOnBoard(e));
 		drawingBoard.update(ObserverConstants.CURSOR_POS_UPDATE);
 	}
 
