@@ -7,7 +7,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
+
+import java.io.File;
+import java.io.IOException;
 
 public class UserInterface implements Runnable {
 	
@@ -15,6 +19,21 @@ public class UserInterface implements Runnable {
 
 	@Override
 	public void run() {
+		File settings = new File("config/settings.ini");
+		if (!settings.exists()) {
+			String line = "Hello there!\n" + 
+						"It looks like this is the first time you're running this application.\n" +
+						"Please note that the polygon points should be provided in a COUNTERCLOCKWISE order; " +
+						"otherwise the triangulation will not work.";
+			JOptionPane.showMessageDialog(null, line);
+			try {
+				settings.getParentFile().mkdirs();
+				settings.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		frame = new JFrame("Main Window");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
