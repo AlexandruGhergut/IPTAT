@@ -84,11 +84,18 @@ public class Polygon2D implements Subject {
 		return false;
 	}
 	
-	public List<Point2D.Double> getPointsList() {
+	public void clear() {
+		while (!points.isEmpty())
+			removeLast();
+		triangles = null;
+		notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
+	}
+	
+	public LinkedList<Point2D.Double> getPointsList() {
 		return points;
 	}
 	
-	public List<Line2D.Double> getEdgesList() {
+	public LinkedList<Line2D.Double> getEdgesList() {
 		return edges;
 	}
 	
