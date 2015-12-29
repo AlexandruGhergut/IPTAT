@@ -19,6 +19,7 @@ public class UserInterface implements Runnable {
 
 	@Override
 	public void run() {
+		
 		File settings = new File("config/settings.ini");
 		if (!settings.exists()) {
 			String line = "Hello there!\n" + 

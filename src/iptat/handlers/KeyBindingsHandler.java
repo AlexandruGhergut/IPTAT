@@ -12,6 +12,8 @@ import javax.swing.KeyStroke;
 import iptat.gui.DrawingBoard;
 import iptat.util.Earcutting;
 import iptat.util.Polygon2D;
+import iptat.util.Polygon2DFileIO;
+import iptat.util.Triangulator;
 
 public class KeyBindingsHandler {
 	
@@ -24,7 +26,7 @@ public class KeyBindingsHandler {
 		
 		Action reset = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
-				drawingBoard.setPolygon(new Polygon2D());
+				drawingBoard.getPolygon().clear();
 			}
 		};
 		
@@ -59,5 +61,23 @@ public class KeyBindingsHandler {
 		
 		inputMap.put(KeyStroke.getKeyStroke("T"), "triangulate");
 		actionMap.put("triangulate", triangulate);
+		
+		Action save = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				Polygon2DFileIO.savePolygon(drawingBoard.getPolygon());
+			}
+		};
+		
+		inputMap.put(KeyStroke.getKeyStroke("control S"), "save");
+		actionMap.put("save", save);
+		
+		Action load = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				Polygon2DFileIO.loadPolygon(drawingBoard.getPolygon());
+			}
+		};
+		
+		inputMap.put(KeyStroke.getKeyStroke("control O"), "load");
+		actionMap.put("load", load);
 	}
 }
