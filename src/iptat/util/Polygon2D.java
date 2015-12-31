@@ -7,6 +7,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Polygon2D implements Subject {
 	private LinkedList<Line2D.Double> edges;
 	private Stack<Point2D.Double> redoPoints;
 	private Stack<Line2D.Double> redoEdges;
+	private HashSet<Point2D.Double> pointsHash;
 	
 	private LinkedList<LinkedList<Point2D.Double>> triangles;
 	
@@ -31,15 +33,20 @@ public class Polygon2D implements Subject {
 		edges = new LinkedList<Line2D.Double>();
 		redoPoints = new Stack<Point2D.Double>();
 		redoEdges = new Stack<Line2D.Double>();
+		pointsHash = new HashSet<Point2D.Double>();
 		
 		triangles = null;
 	}
 	
 	public void addPoint(Point2D.Double point) {
+		if (pointsHash.contains(point))
+			return;
+		
 		if (points.size() >= 1) // we need at least 2 points to begin construction of edges list
 			edges.add(new Line2D.Double(points.get(points.size() - 1), point));
 		
 		points.add(point);
+		pointsHash.add(point);
 		triangles = null;
 		
 		notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
@@ -56,6 +63,7 @@ public class Polygon2D implements Subject {
 	// removes the last added point
 	public boolean removeLast() {
 		if (!points.isEmpty()) {
+			pointsHash.remove(points.getLast());
 			redoPoints.push(points.removeLast());
 			if (!edges.isEmpty())
 				redoEdges.push(edges.removeLast());
@@ -87,7 +95,9 @@ public class Polygon2D implements Subject {
 	public void clear() {
 		while (!points.isEmpty())
 			removeLast();
+		pointsHash.clear();
 		triangles = null;
+		
 		notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 	
