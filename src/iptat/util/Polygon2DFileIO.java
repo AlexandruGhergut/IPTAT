@@ -5,7 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.LinkedList;
+
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -19,7 +20,7 @@ public class Polygon2DFileIO {
 		int selectedOption = fileChooser.showSaveDialog(null);
 		
 		if (selectedOption == JFileChooser.APPROVE_OPTION) {
-			LinkedList<Point2D.Double> points = polygon.getPointsList();
+			List<Point2D.Double> points = polygon.getPointsList();
 			
 			try {
 				FileWriter fileWriter = new FileWriter(fileChooser.getSelectedFile());

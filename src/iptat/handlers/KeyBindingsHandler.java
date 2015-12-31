@@ -13,7 +13,6 @@ import iptat.gui.DrawingBoard;
 import iptat.util.Earcutting;
 import iptat.util.Polygon2D;
 import iptat.util.Polygon2DFileIO;
-import iptat.util.Triangulator;
 
 public class KeyBindingsHandler {
 	

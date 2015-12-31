@@ -1,8 +1,5 @@
 package iptat.gui;
 
-import java.awt.MouseInfo;
-
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 import iptat.util.Observer;

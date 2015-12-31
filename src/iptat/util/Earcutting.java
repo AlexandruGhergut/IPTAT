@@ -2,17 +2,18 @@ package iptat.util;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Earcutting {
-	private static LinkedList<LinkedList<Point2D.Double>> triangles;
-	public static LinkedList<LinkedList<Point2D.Double>> earcutting(Polygon2D polygon)
+	private static List<List<Point2D.Double>> triangles;
+	public static List<List<Point2D.Double>> earcutting(Polygon2D polygon)
 	{
-		LinkedList<Point2D.Double> points = new LinkedList<>(polygon.getPointsList());
-		triangles = new LinkedList<LinkedList<Point2D.Double>>();
+		List<Point2D.Double> points = new LinkedList<>(polygon.getPointsList());
+		triangles = new LinkedList<List<Point2D.Double>>();
 		getTriangles(points);
 		return triangles;
 	}
-	private static void getTriangles(LinkedList<Point2D.Double> points)
+	private static void getTriangles(List<Point2D.Double> points)
 	{
 		int n = points.size();
 		boolean semafor = true;//true=e principal

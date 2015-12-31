@@ -5,13 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
+
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 public class Polygon2D implements Subject {
 	
@@ -19,20 +20,20 @@ public class Polygon2D implements Subject {
 	
 	private List<Observer> observers;
 	
-	private LinkedList<Point2D.Double> points;
-	private LinkedList<Line2D.Double> edges;
-	private Stack<Point2D.Double> redoPoints;
-	private Stack<Line2D.Double> redoEdges;
+	private List<Point2D.Double> points;
+	private List<Line2D.Double> edges;
+	private Deque<Point2D.Double> redoPoints;
+	private Deque<Line2D.Double> redoEdges;
 	private HashSet<Point2D.Double> pointsHash;
 	
-	private LinkedList<LinkedList<Point2D.Double>> triangles;
+	private List<List<Point2D.Double>> triangles;
 	
 	public Polygon2D() {
 		observers = new ArrayList<Observer>();
 		points = new LinkedList<Point2D.Double>();
 		edges = new LinkedList<Line2D.Double>();
-		redoPoints = new Stack<Point2D.Double>();
-		redoEdges = new Stack<Line2D.Double>();
+		redoPoints = new ArrayDeque<Point2D.Double>();
+		redoEdges = new ArrayDeque<Line2D.Double>();
 		pointsHash = new HashSet<Point2D.Double>();
 		
 		triangles = null;
@@ -63,10 +64,13 @@ public class Polygon2D implements Subject {
 	// removes the last added point
 	public boolean removeLast() {
 		if (!points.isEmpty()) {
-			pointsHash.remove(points.getLast());
-			redoPoints.push(points.removeLast());
+			int lastPointIndex = points.size() - 1;
+			int lastEdgeIndex = edges.size() - 1;
+			
+			pointsHash.remove(points.get(lastPointIndex));
+			redoPoints.push(points.remove(lastPointIndex));
 			if (!edges.isEmpty())
-				redoEdges.push(edges.removeLast());
+				redoEdges.push(edges.remove(lastEdgeIndex));
 			
 			triangles = null;
 			notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
@@ -78,7 +82,7 @@ public class Polygon2D implements Subject {
 	
 	// restores the last removed point
 	public boolean restoreLast() {
-		if (!redoPoints.empty()) {
+		if (!redoPoints.isEmpty()) {
 			points.add(redoPoints.pop());
 			
 			if (points.size() > 1)
@@ -101,11 +105,11 @@ public class Polygon2D implements Subject {
 		notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 	
-	public LinkedList<Point2D.Double> getPointsList() {
+	public List<Point2D.Double> getPointsList() {
 		return points;
 	}
 	
-	public LinkedList<Line2D.Double> getEdgesList() {
+	public List<Line2D.Double> getEdgesList() {
 		return edges;
 	}
 	
@@ -117,7 +121,7 @@ public class Polygon2D implements Subject {
 		return triangles != null;
 	}
 	
-	public void setTriangulation(LinkedList<LinkedList<Point2D.Double>> triangles) {
+	public void setTriangulation(List<List<Point2D.Double>> triangles) {
 		this.triangles = triangles;
 		notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
 	}
@@ -149,15 +153,16 @@ public class Polygon2D implements Subject {
 		Color lastColor = g.getColor();
 		g.setColor(Color.RED);
 		
-		Iterator<LinkedList<Point2D.Double>> it = triangles.iterator();
-		LinkedList<Point2D.Double> triangle = it.next();
+		Iterator<List<Point2D.Double>> it = triangles.iterator();
+		List<Point2D.Double> triangle = it.next();
 		
 		/* ignore the last triangle as it should contain either a diagonal which is already drawn
 		 * or a polygon edge
 		 */
+		
 		while (it.hasNext()) {
-			g.draw(new Line2D.Double(triangle.getFirst().getX(), triangle.getFirst().getY(),
-					triangle.getLast().getX(), triangle.getLast().getY()));
+			g.draw(new Line2D.Double(triangle.get(0).getX(), triangle.get(0).getY(),
+					triangle.get(2).getX(), triangle.get(2).getY()));
 			triangle = it.next();
 		}
 		
