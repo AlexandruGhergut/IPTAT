@@ -1,12 +1,14 @@
 package iptat.handlers;
 
 import java.awt.event.ActionEvent;
+import java.util.Scanner;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import iptat.gui.DrawingBoard;
@@ -82,5 +84,31 @@ public class KeyBindingsHandler {
 		
 		inputMap.put(KeyStroke.getKeyStroke("control O"), "load");
 		actionMap.put("load", load);
+		
+		Action addPoints = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				String inputString = JOptionPane.showInputDialog(null,
+									"Example: \"1 5 2 8\" will add point (1, 5) and point (2, 8)", 
+									"Add Points", JOptionPane.PLAIN_MESSAGE);
+				if (inputString == null)
+					return;
+				
+				Scanner reader = new Scanner(inputString);
+				Polygon2D polygon = drawingBoard.getPolygon();
+				double x, y;
+				
+				while (reader.hasNextDouble()) {
+					x = reader.nextDouble();
+					if (reader.hasNextDouble()) {
+						y = reader.nextDouble();
+						polygon.addPoint(x, y);
+					}
+				}
+				reader.close();
+			}
+		};
+		
+		inputMap.put(KeyStroke.getKeyStroke("control A"), "addPoints");
+		actionMap.put("addPoints", addPoints);
 	}
 }
