@@ -4,16 +4,16 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Earcutting {
-	private static List<List<Point2D.Double>> triangles;
-	public static List<List<Point2D.Double>> earcutting(Polygon2D polygon)
+public class Earcutting implements Triangulator {
+	private List<List<Point2D.Double>> triangles;
+	public List<List<Point2D.Double>> getTriangulation(Polygon2D polygon)
 	{
 		List<Point2D.Double> points = new LinkedList<>(polygon.getPointsList());
 		triangles = new LinkedList<List<Point2D.Double>>();
 		getTriangles(points);
 		return triangles;
 	}
-	private static void getTriangles(List<Point2D.Double> points)
+	private void getTriangles(List<Point2D.Double> points)
 	{
 		int n = points.size();
 		boolean semafor = true;//true=e principal
@@ -59,7 +59,7 @@ public class Earcutting {
 		}
 	
 	}
-	public static double determinant(Point2D.Double a,Point2D.Double b,Point2D.Double c)
+	public double determinant(Point2D.Double a,Point2D.Double b,Point2D.Double c)
 	{
 		return (a.x*b.y+a.y*c.x+b.x*c.y-c.x*b.y-a.x*c.y-b.x*a.y);
 	}

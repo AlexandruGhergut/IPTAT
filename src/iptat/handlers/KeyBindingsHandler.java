@@ -53,8 +53,12 @@ public class KeyBindingsHandler {
 		Action triangulate = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				Polygon2D polygon = drawingBoard.getPolygon();
-				if (!polygon.isTriangulated())
-					polygon.setTriangulation(Earcutting.earcutting(polygon));
+				
+				if (!polygon.isTriangulated() && !polygon.isTriangulating()) {
+					TriangulationHandler th = new TriangulationHandler(new Earcutting());
+					polygon.setTriangulationInProgress();
+					th.triangulate(polygon);
+				}
 			}
 		};
 		

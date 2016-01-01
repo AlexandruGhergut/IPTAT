@@ -27,6 +27,7 @@ public class Polygon2D implements Subject {
 	private HashSet<Point2D.Double> pointsHash;
 	
 	private List<List<Point2D.Double>> triangles;
+	private boolean triangulationInProgress;
 	
 	public Polygon2D() {
 		observers = new ArrayList<Observer>();
@@ -37,6 +38,7 @@ public class Polygon2D implements Subject {
 		pointsHash = new HashSet<Point2D.Double>();
 		
 		triangles = null;
+		triangulationInProgress = false;
 	}
 	
 	public void addPoint(Point2D.Double point) {
@@ -121,8 +123,17 @@ public class Polygon2D implements Subject {
 		return triangles != null;
 	}
 	
+	public boolean isTriangulating() {
+		return triangulationInProgress;
+	}
+	
+	public void setTriangulationInProgress() {
+		triangulationInProgress = true;
+	}
+	
 	public void setTriangulation(List<List<Point2D.Double>> triangles) {
 		this.triangles = triangles;
+		triangulationInProgress = false;
 		notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 	
