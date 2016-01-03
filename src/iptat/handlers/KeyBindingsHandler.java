@@ -58,8 +58,14 @@ public class KeyBindingsHandler {
 				
 				if (!polygon.isTriangulated() && !polygon.isTriangulating()) {
 					TriangulationHandler th = new TriangulationHandler(new Earcutting());
-					polygon.setTriangulationInProgress();
-					th.triangulate(polygon);
+					
+					try {
+						th.triangulate(polygon);
+						polygon.setTriangulationInProgress();
+					} catch (Exception exc) {
+						JOptionPane.showMessageDialog(null, exc.getMessage(), 
+								"Unable to start triangulation!", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		};
