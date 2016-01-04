@@ -5,17 +5,26 @@ import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import com.sun.glass.events.KeyEvent;
 
 public class MenuBar extends JMenuBar {
 	
 	private Robot robot;
+	private JFrame frame;
 	
-	public MenuBar() {
+	public MenuBar(JFrame frame) {
+		this.frame = frame;
+		
 		try {
 			robot = new Robot();
 		} catch (AWTException e) {
@@ -25,6 +34,7 @@ public class MenuBar extends JMenuBar {
 		addFileMenu();
 		addEditMenu();
 		addTriangulationMenu();
+		addThemeMenu();
 	}
 	
 	private void addFileMenu() {
@@ -155,5 +165,52 @@ public class MenuBar extends JMenuBar {
 		triangulationMenu.add(triangulate);
 		
 		super.add(triangulationMenu);
+	}
+	
+	private void addThemeMenu() {
+		JMenu themeMenu = new JMenu("Theme");
+		
+		ButtonGroup themesGroup = new ButtonGroup();
+		
+		JRadioButtonMenuItem javaTheme = new JRadioButtonMenuItem("Java");
+		javaTheme.setSelected(true);
+		javaTheme.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				javaTheme.setSelected(true);
+				changeTheme(UIManager.getCrossPlatformLookAndFeelClassName());
+			}
+			
+		});
+		themesGroup.add(javaTheme);
+		themeMenu.add(javaTheme);
+		
+		JRadioButtonMenuItem nativeTheme = new JRadioButtonMenuItem("Native");
+		nativeTheme.setSelected(true);
+		nativeTheme.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				nativeTheme.setSelected(true);
+				changeTheme(UIManager.getSystemLookAndFeelClassName());
+			}
+			
+		});
+		themesGroup.add(nativeTheme);
+		themeMenu.add(nativeTheme);
+		
+		super.add(themeMenu);
+	}
+	
+	private void changeTheme(String theme) {
+		try {
+			UIManager.setLookAndFeel(theme);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		SwingUtilities.updateComponentTreeUI(frame);
+		frame.pack();
 	}
 }

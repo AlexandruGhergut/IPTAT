@@ -42,7 +42,7 @@ public class UserInterface implements Runnable {
 		frame.setPreferredSize(new Dimension(screenSize.width / 2, screenSize.height / 2));
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		frame.setJMenuBar(new MenuBar());
+		frame.setJMenuBar(new MenuBar(frame));
 		
 		createComponents(frame.getContentPane());
 		
