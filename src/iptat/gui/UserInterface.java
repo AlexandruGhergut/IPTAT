@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 import java.io.File;
@@ -18,8 +20,7 @@ public class UserInterface implements Runnable {
 	private JFrame frame;
 
 	@Override
-	public void run() {
-		
+	public void run() {	
 		File settings = new File("config/settings.ini");
 		if (!settings.exists()) {
 			String line = "Hello there!\n" + 
@@ -41,6 +42,8 @@ public class UserInterface implements Runnable {
 		frame.setPreferredSize(new Dimension(screenSize.width / 2, screenSize.height / 2));
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+		frame.setJMenuBar(new MenuBar());
+		
 		createComponents(frame.getContentPane());
 		
 		frame.pack();

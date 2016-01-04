@@ -32,7 +32,6 @@ public class TriangulationHandler extends SwingWorker<Void, Void> {
 		Point2D.Double previous = it.next();
 		Point2D.Double current;
 		
-		// this uses the sign from a part of shoelace formula
 		double result = 0;
 		while (it.hasNext()) {
 			current = it.next();	
