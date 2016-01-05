@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -53,6 +54,7 @@ public class MenuBar extends JMenuBar {
 			}
 			
 		});
+		loadPolygon.setAccelerator(KeyStroke.getKeyStroke("control O"));
 		fileMenu.add(loadPolygon);
 		
 		JMenuItem savePolygon = new JMenuItem("Save Polygon...");
@@ -66,6 +68,7 @@ public class MenuBar extends JMenuBar {
 			}
 			
 		});
+		savePolygon.setAccelerator(KeyStroke.getKeyStroke("control S"));
 		fileMenu.add(savePolygon);
 		
 		fileMenu.addSeparator();
@@ -79,6 +82,7 @@ public class MenuBar extends JMenuBar {
 			}
 			
 		});
+		exit.setAccelerator(KeyStroke.getKeyStroke("ESCAPE"));
 		fileMenu.add(exit);
 		
 		super.add(fileMenu);
@@ -100,6 +104,7 @@ public class MenuBar extends JMenuBar {
 			}
 			
 		});
+		undo.setAccelerator(KeyStroke.getKeyStroke("control Z"));
 		editMenu.add(undo);
 		
 		JMenuItem redo = new JMenuItem("Redo");
@@ -114,6 +119,7 @@ public class MenuBar extends JMenuBar {
 			}
 			
 		});
+		redo.setAccelerator(KeyStroke.getKeyStroke("control X"));
 		editMenu.add(redo);
 		
 		editMenu.addSeparator();
@@ -128,6 +134,7 @@ public class MenuBar extends JMenuBar {
 			}
 			
 		});
+		clear.setAccelerator(KeyStroke.getKeyStroke("R"));
 		editMenu.add(clear);
 		
 		editMenu.addSeparator();
@@ -144,6 +151,7 @@ public class MenuBar extends JMenuBar {
 			}
 			
 		});
+		addPoints.setAccelerator(KeyStroke.getKeyStroke("control A"));
 		editMenu.add(addPoints);
 		
 		super.add(editMenu);
@@ -162,6 +170,7 @@ public class MenuBar extends JMenuBar {
 			}
 			
 		});
+		triangulate.setAccelerator(KeyStroke.getKeyStroke("T"));
 		triangulationMenu.add(triangulate);
 		
 		super.add(triangulationMenu);
