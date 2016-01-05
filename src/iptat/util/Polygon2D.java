@@ -8,11 +8,13 @@ import java.awt.geom.Point2D;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Polygon2D implements Subject {
 	
@@ -107,6 +109,18 @@ public class Polygon2D implements Subject {
 		notifyObservers(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 	
+	public void reversePointsList() {
+		ListIterator<Point2D.Double> it = points.listIterator(points.size());
+		List<Point2D.Double> newList = new ArrayList<Point2D.Double>();
+		
+		while (it.hasPrevious())
+			newList.add(it.previous());
+		
+		clear();
+		for (Point2D.Double point: newList)
+			addPoint(point);
+	}
+	
 	public List<Point2D.Double> getPointsList() {
 		return points;
 	}
@@ -179,7 +193,7 @@ public class Polygon2D implements Subject {
 		
 		g.setColor(lastColor);
 	}
-
+	
 	@Override
 	public void addObserver(Observer ob) {
 		observers.add(ob);

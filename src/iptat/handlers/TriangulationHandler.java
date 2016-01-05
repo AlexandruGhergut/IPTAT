@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import iptat.util.Polygon2D;
@@ -55,8 +56,20 @@ public class TriangulationHandler extends SwingWorker<Void, Void> {
 		if (polygon.getPointsCount() < 3)
 			throw new Exception("At least 3 points should be provided before starting a triangulation.");
 		
-		if (!isOrderedCounterclockwise(polygon))
-			throw new Exception("Points are not supplied in a counterclockwise order.");
+		if (!isOrderedCounterclockwise(polygon)) {
+			String question = "The polygon cannot be triangulated unless the points are added " +
+					"in a counterclockwise order.\n" + 
+					"Your order is clockwise. If we reverse the list of points, you will obtain a " + 
+					"a counterclockwise order.\n" + "Would you like us to do that for you?";
+			
+			int answer = JOptionPane.showConfirmDialog(null, question,
+					"Unable to start triangulation!", JOptionPane.YES_NO_OPTION);
+			
+			if (answer == JOptionPane.NO_OPTION)
+				throw new Exception("Points are not supplied in a counterclockwise order.");
+			
+			polygon.reversePointsList();
+		}
 		
 		this.polygon = polygon;
 		
