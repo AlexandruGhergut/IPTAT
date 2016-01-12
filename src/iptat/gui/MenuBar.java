@@ -18,10 +18,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import com.sun.glass.events.KeyEvent;
 
+import iptat.util.CommandGenerator;
+
 public class MenuBar extends JMenuBar {
 	
 	private Robot robot;
 	private JFrame frame;
+	private CommandGenerator commandGenerator;
 	
 	public MenuBar(JFrame frame) {
 		this.frame = frame;
@@ -32,6 +35,7 @@ public class MenuBar extends JMenuBar {
 			e.printStackTrace();
 		}
 		
+		commandGenerator = CommandGenerator.getInstance();
 		addFileMenu();
 		addEditMenu();
 		addTriangulationMenu();
@@ -47,10 +51,7 @@ public class MenuBar extends JMenuBar {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_O);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.keyRelease(KeyEvent.VK_O);
+				commandGenerator.triggerLoadPolygon();
 			}
 			
 		});
@@ -61,10 +62,7 @@ public class MenuBar extends JMenuBar {
 		savePolygon.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_S);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.keyRelease(KeyEvent.VK_S);
+				commandGenerator.triggerSavePolygon();
 			}
 			
 		});
@@ -78,7 +76,7 @@ public class MenuBar extends JMenuBar {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				commandGenerator.triggerExit();
 			}
 			
 		});
@@ -97,10 +95,7 @@ public class MenuBar extends JMenuBar {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_Z);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.keyRelease(KeyEvent.VK_Z);
+				commandGenerator.triggerUndo();
 			}
 			
 		});
@@ -112,10 +107,7 @@ public class MenuBar extends JMenuBar {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_X);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.keyRelease(KeyEvent.VK_X);
+				commandGenerator.triggerRedo();
 			}
 			
 		});
@@ -129,8 +121,7 @@ public class MenuBar extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				robot.keyPress(KeyEvent.VK_R);
-				robot.keyRelease(KeyEvent.VK_R);
+				commandGenerator.triggerClear();
 			}
 			
 		});
@@ -144,10 +135,7 @@ public class MenuBar extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_A);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.keyRelease(KeyEvent.VK_A);
+				commandGenerator.triggerAddPoints();
 			}
 			
 		});
@@ -165,8 +153,7 @@ public class MenuBar extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				robot.keyPress(KeyEvent.VK_T);
-				robot.keyRelease(KeyEvent.VK_T);
+				commandGenerator.triggerTriangulate();
 			}
 			
 		});

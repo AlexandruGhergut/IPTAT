@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import iptat.handlers.KeyBindingsHandler;
 import iptat.handlers.MouseEventHandler;
