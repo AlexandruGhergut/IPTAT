@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import iptat.gui.DrawingBoard;
-import iptat.util.Earcutting;
+import iptat.util.EarCutter;
 import iptat.util.Polygon2D;
 import iptat.util.Polygon2DFileIO;
 
@@ -62,7 +62,7 @@ public class KeyBindingsHandler {
 				Polygon2D polygon = drawingBoard.getPolygon();
 				
 				if (!polygon.isTriangulated() && !polygon.isTriangulating()) {
-					TriangulationHandler th = new TriangulationHandler(new Earcutting());
+					TriangulationHandler th = new TriangulationHandler(new EarCutter());
 					
 					try {
 						th.triangulate(polygon);
