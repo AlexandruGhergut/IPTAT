@@ -24,6 +24,8 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	
 	private Polygon2D polygon;
 	private Point2D.Double cursorPosition;
+	private double scaleX;
+	private double scaleY;
 	
 	public DrawingBoard() {
 		super.setBackground(Color.WHITE);
@@ -37,6 +39,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		KeyBindingsHandler.init(this);
 		
 		cursorPosition = new Point2D.Double(0, 0);
+		scaleX = scaleY = 0;
 	}
 	
 	@Override
@@ -107,5 +110,44 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	
 	public void setCursorPosition(Point2D.Double point) {
 		cursorPosition = point;
+	}
+	
+	private boolean incrementScaleX(double amount) {
+		if (scaleX + amount > 0) {
+			scaleX += amount;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean incrementScaleY(double amount) {
+		if (scaleY + amount > 0) {
+			scaleY += amount;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean incrementScale(double amount) {
+		if (scaleX + amount > 0 && scaleY + amount > 0) {
+			incrementScaleX(amount);
+			incrementScaleY(amount);
+		}
+		
+		return false;
+	}
+	
+	public boolean decrementScaleX(double amount) {
+		return incrementScaleX(-amount);
+	}
+	
+	public boolean decrementScaleY(double amount) {
+		return incrementScaleY(-amount);
+	}
+	
+	public boolean decrementScale(double amount) {
+		return incrementScale(-amount);
 	}
 }
