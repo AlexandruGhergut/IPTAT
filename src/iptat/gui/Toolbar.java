@@ -6,8 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 
 import iptat.util.CommandGenerator;
@@ -18,15 +20,19 @@ public class Toolbar extends JToolBar {
 	private CommandGenerator commandGenerator;
 		
 	public Toolbar() {
+		commandGenerator=CommandGenerator.getInstance();
+		
 		super.setFloatable(false);
 		addFileButtons();
+		super.addSeparator();
 		addEditButtons();
+		super.addSeparator();
 		addTriangulationButton();
+		
+		super.add(Box.createHorizontalGlue());
 		addHelpButton();
-		commandGenerator=CommandGenerator.getInstance();
 	}
 	
-	// TO-DO
 	private void addFileButtons() {
 		ImageIcon load = new ImageIcon("res/img/open.png");
 		load.setImage(getResizedImage(load.getImage(), IMAGE_SIZE, IMAGE_SIZE));
@@ -39,6 +45,7 @@ public class Toolbar extends JToolBar {
 				commandGenerator.triggerLoadPolygon();
 			}	
 		});
+		loadPolygon.setToolTipText("Load Polygon (Ctrl+O)");
 		
 		ImageIcon save = new ImageIcon("res/img/save.png");
 		save.setImage(getResizedImage(save.getImage(), IMAGE_SIZE, IMAGE_SIZE));
@@ -51,6 +58,7 @@ public class Toolbar extends JToolBar {
 				commandGenerator.triggerSavePolygon();
 			}		
 		});
+		savePolygon.setToolTipText("Save Polygon (Ctrl+S)");
 	}
 	
 	private void addEditButtons(){
@@ -65,6 +73,7 @@ public class Toolbar extends JToolBar {
 				commandGenerator.triggerAddPoints();
 			}		
 		});
+		addPoints.setToolTipText("Add Points (Ctrl+A)");
 		
 		ImageIcon delete = new ImageIcon("res/img/clear.png");
 		delete.setImage(getResizedImage(delete.getImage(), IMAGE_SIZE, IMAGE_SIZE));
@@ -77,6 +86,7 @@ public class Toolbar extends JToolBar {
 				commandGenerator.triggerClear();
 			}
 		});
+		deletePoints.setToolTipText("Reset (R)");
 		
 		ImageIcon undo = new ImageIcon("res/img/undo.png");
 		undo.setImage(getResizedImage(undo.getImage(), IMAGE_SIZE, IMAGE_SIZE));
@@ -89,6 +99,7 @@ public class Toolbar extends JToolBar {
 				commandGenerator.triggerUndo();
 			}			
 		});
+		undoButton.setToolTipText("Undo (Ctrl+Z)");
 		
 		ImageIcon redo = new ImageIcon("res/img/redo.png");
 		redo.setImage(getResizedImage(redo.getImage(), IMAGE_SIZE, IMAGE_SIZE));
@@ -102,6 +113,7 @@ public class Toolbar extends JToolBar {
 			}
 			
 		});
+		redoButton.setToolTipText("Redo (Ctrl+X)");
 	}
 	
 	private void addHelpButton(){
@@ -113,10 +125,11 @@ public class Toolbar extends JToolBar {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-		//		commandGenerator. <- ADAUGA HELP!!
+				JOptionPane.showMessageDialog(null, "Not yet implemented");
 			}
 			
 		});
+		helpButton.setToolTipText("Help");
 	}
 	private void addTriangulationButton(){
 		ImageIcon triangulation = new ImageIcon("res/img/triangle.png");
@@ -130,7 +143,9 @@ public class Toolbar extends JToolBar {
 				commandGenerator.triggerTriangulate();
 			}
 		});
+		triangulationButton.setToolTipText("Triangulate (T)");
 	}
+	
 	private	Image getResizedImage(Image src, int width, int height) {
 		BufferedImage resizedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = resizedImage.createGraphics();
