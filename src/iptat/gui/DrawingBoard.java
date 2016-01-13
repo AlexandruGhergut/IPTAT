@@ -24,8 +24,10 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	
 	private Polygon2D polygon;
 	private Point2D.Double cursorPosition;
-	private double scaleX;
+	private double scaleX;	
 	private double scaleY;
+	private double translateX;
+	private double translateY;
 	
 	public DrawingBoard() {
 		super.setBackground(Color.WHITE);
@@ -36,12 +38,37 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		MouseEventHandler mouseHandler = new MouseEventHandler(this);
 		super.addMouseListener(mouseHandler);
 		super.addMouseMotionListener(mouseHandler);
+		super.addMouseWheelListener(mouseHandler);
 		KeyBindingsHandler.init(this);
 		
 		cursorPosition = new Point2D.Double(0, 0);
-		scaleX = scaleY = 0;
+		scaleX = scaleY = 1;	
+		translateX = translateY = 0;
 	}
 	
+	public double getScaleX() {
+		return scaleX;
+	}
+	
+	public double getScaleY() {
+		return scaleY;
+	}
+	
+	public void setTranslateX(double translateX) {
+		this.translateX = translateX;
+	}
+
+	public void setTranslateY(double translateY) {
+		this.translateY = translateY;
+	}
+
+	public double getTranslateX() {
+		return translateX;
+	}
+
+	public double getTranslateY() {
+		return translateY;
+	}
 	@Override
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
@@ -50,9 +77,10 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		
 		AffineTransform transformer = g2.getTransform();
 		// set origin to center of the drawingboard
-		transformer.translate(super.getWidth() / 2, super.getHeight() / 2);
+		transformer.translate(super.getWidth() / 2 + translateX, super.getHeight() / 2 + translateY);
 		// flip Y-axis
-		transformer.scale(1.0, -1.0); // flip Y axis
+		transformer.scale(scaleX, -scaleY); // flip Y axis
+		
 		
 		g2.setTransform(transformer);
 		
