@@ -36,10 +36,13 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		MouseEventHandler mouseHandler = new MouseEventHandler(this);
 		super.addMouseListener(mouseHandler);
 		super.addMouseMotionListener(mouseHandler);
+		super.addMouseWheelListener(mouseHandler);
 		KeyBindingsHandler.init(this);
 		
 		cursorPosition = new Point2D.Double(0, 0);
-		scaleX = scaleY = 0;
+		scaleX = scaleY = 1;
+		
+		
 	}
 	
 	@Override
@@ -52,7 +55,8 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		// set origin to center of the drawingboard
 		transformer.translate(super.getWidth() / 2, super.getHeight() / 2);
 		// flip Y-axis
-		transformer.scale(1.0, -1.0); // flip Y axis
+		transformer.scale(scaleX, -scaleY); // flip Y axis
+		
 		
 		g2.setTransform(transformer);
 		
