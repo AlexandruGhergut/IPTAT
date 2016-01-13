@@ -27,6 +27,11 @@ public class KeyBindingsHandler {
 		
 		Action reset = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
+				drawingBoard.setTranslateX(0);
+				drawingBoard.setTranslateY(0);
+				drawingBoard.setScaleX(1);
+				drawingBoard.setScaleY(1);
+				
 				drawingBoard.getPolygon().clear();
 			}
 		};
