@@ -13,11 +13,11 @@ import iptat.util.ObserverConstants;
 public class MouseEventHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
 	
 	private DrawingBoard drawingBoard;
-	
+	private MouseEvent lastClick; 
 	private Point2D.Double getPointOnBoard(MouseEvent e) {
 		Point2D.Double point = new Point2D.Double();
-		double x = e.getX() - drawingBoard.getWidth() / 2;
-		double y = drawingBoard.getHeight() / 2 - e.getY();
+		double x = (e.getX() - drawingBoard.getWidth() / 2 - drawingBoard.getTranslateX()) / drawingBoard.getScaleX();
+		double y = (drawingBoard.getHeight() / 2 - e.getY() + drawingBoard.getTranslateY()) / drawingBoard.getScaleY();
 		point.setLocation(x, y);
 		return point;
 	}
@@ -28,15 +28,19 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Mo
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		drawingBoard.getPolygon().addPoint(getPointOnBoard(e));
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		lastClick=e;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		drawingBoard.getPolygon().addPoint(getPointOnBoard(e));
+		drawingBoard.setTranslateX(drawingBoard.getTranslateX() + e.getX() - lastClick.getX());
+		drawingBoard.setTranslateY(drawingBoard.getTranslateY() + e.getY() - lastClick.getY());
+		drawingBoard.update(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 
 	@Override
