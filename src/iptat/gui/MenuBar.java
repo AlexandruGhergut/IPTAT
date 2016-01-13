@@ -116,8 +116,8 @@ public class MenuBar extends JMenuBar {
 		
 		editMenu.addSeparator();
 		
-		JMenuItem clear = new JMenuItem("Clear");
-		clear.addActionListener(new ActionListener() {
+		JMenuItem reset = new JMenuItem("Reset");
+		reset.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -125,8 +125,8 @@ public class MenuBar extends JMenuBar {
 			}
 			
 		});
-		clear.setAccelerator(KeyStroke.getKeyStroke("R"));
-		editMenu.add(clear);
+		reset.setAccelerator(KeyStroke.getKeyStroke("R"));
+		editMenu.add(reset);
 		
 		editMenu.addSeparator();
 		
