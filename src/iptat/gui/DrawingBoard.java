@@ -162,6 +162,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		if (scaleX + amount > 0 && scaleY + amount > 0) {
 			incrementScaleX(amount);
 			incrementScaleY(amount);
+			System.out.println(scaleX);
 		}
 		
 		return false;

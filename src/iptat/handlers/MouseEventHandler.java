@@ -13,7 +13,13 @@ import iptat.util.ObserverConstants;
 public class MouseEventHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
 	
 	private DrawingBoard drawingBoard;
-	private MouseEvent lastClick; 
+	private MouseEvent lastPress; 
+	
+	private final double ZOOM_FACTOR;
+	
+	private double currentTranslateX;
+	private double currentTranslateY;
+	
 	private Point2D.Double getPointOnBoard(MouseEvent e) {
 		Point2D.Double point = new Point2D.Double();
 		double x = (e.getX() - drawingBoard.getWidth() / 2 - drawingBoard.getTranslateX()) / drawingBoard.getScaleX();
@@ -23,7 +29,10 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Mo
 	}
 	
 	public MouseEventHandler(DrawingBoard drawingBoard) {
+		ZOOM_FACTOR = 0.1;
+		
 		this.drawingBoard = drawingBoard;
+		currentTranslateX = currentTranslateY = 0;
 	}
 	
 	@Override
@@ -33,13 +42,17 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Mo
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		lastClick=e;
+		lastPress = e;
+		
+		currentTranslateX = drawingBoard.getTranslateX();
+		currentTranslateY = drawingBoard.getTranslateY();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		drawingBoard.setTranslateX(drawingBoard.getTranslateX() + e.getX() - lastClick.getX());
-		drawingBoard.setTranslateY(drawingBoard.getTranslateY() + e.getY() - lastClick.getY());
+		drawingBoard.setTranslateX(currentTranslateX + e.getX() - lastPress.getX());
+		drawingBoard.setTranslateY(currentTranslateY + e.getY() - lastPress.getY());
+		
 		drawingBoard.update(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 
@@ -53,6 +66,10 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Mo
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		drawingBoard.setTranslateX(currentTranslateX + e.getX() - lastPress.getX());
+		drawingBoard.setTranslateY(currentTranslateY + e.getY() - lastPress.getY());
+		
+		drawingBoard.update(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 
 	@Override
@@ -63,10 +80,11 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Mo
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if(e.getWheelRotation() < 0)
-			drawingBoard.incrementScale(0.1);
+		if (e.getWheelRotation() < 0)
+			drawingBoard.incrementScale(ZOOM_FACTOR);
 		else
-			drawingBoard.decrementScale(0.1);
+			drawingBoard.decrementScale(ZOOM_FACTOR);
+		
 		drawingBoard.update(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 
