@@ -38,6 +38,7 @@ public class KeyBindingsHandler {
 		initEditBindings(drawingBoard, actionMap, inputMap);
 		initTriangulationBindings(drawingBoard, actionMap, inputMap);
 		affineTransformBindings(drawingBoard, actionMap, inputMap);
+		miscBindings(drawingBoard, actionMap, inputMap);
 	}
 	
 	private static void initFileBindings(DrawingBoard drawingBoard, 
@@ -227,5 +228,21 @@ public class KeyBindingsHandler {
 		
 		inputMap.put(KeyStroke.getKeyStroke("F2"), "translate");
 		actionMap.put("translate", translate);
+	}
+	
+	public static void miscBindings(DrawingBoard drawingBoard, 
+			ActionMap actionMap, InputMap inputMap) {
+		
+		Action toggleAxisDraw = new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				drawingBoard.toggleAxisDraw();
+			}
+			
+		};
+		
+		inputMap.put(KeyStroke.getKeyStroke("V"), "toggleAxisDraw");
+		actionMap.put("toggleAxisDraw", toggleAxisDraw);
 	}
 }

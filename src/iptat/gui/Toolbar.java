@@ -218,6 +218,7 @@ public class Toolbar extends JToolBar {
 			}
 			
 		});
+		translateButton.setToolTipText("Translate");
 		
 	}
 	

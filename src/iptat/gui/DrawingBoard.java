@@ -27,6 +27,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	
 	private Polygon2D polygon;
 	private Point2D.Double cursorPosition;
+	private boolean drawAxis;
 	private double scaleX;	
 	private double scaleY;
 	private double translateX;
@@ -46,6 +47,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		super.addMouseWheelListener(mouseHandler);
 		KeyBindingsHandler.init(this);
 		
+		drawAxis = false;
 		cursorPosition = new Point2D.Double(0, 0);
 		setScaleX(1);
 		setScaleY(1);
@@ -62,6 +64,33 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 
 		Graphics2D g2 = (Graphics2D) graphics;
 		
+		// draw with sub-pixel precision
+		g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
+		
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		if (drawAxis) {
+			Color prevColor = g2.getColor();
+			
+			g2.setColor(Color.GRAY);
+			g2.drawLine(0, super.getHeight() / 2, super.getWidth(), super.getHeight() / 2);
+			g2.drawLine(super.getWidth() / 2, 0, super.getWidth() / 2, super.getHeight());
+			g2.fillOval(super.getWidth() / 2 - 3, super.getHeight() / 2 - 3, 6, 6);
+			
+			final int distance = 10, width = super.getWidth(), height = super.getHeight();
+			
+			int[] arrow1X = {width, width - distance, width - distance};
+			int[] arrow1Y = {height / 2, height / 2 - distance, height / 2 + distance};
+			g2.fillPolygon(arrow1X, arrow1Y, 3);
+			
+			int[] arrow2X = {width / 2, width / 2 - distance, width / 2 + distance};
+			int[] arrow2Y = {0, distance, distance};
+			g2.fillPolygon(arrow2X, arrow2Y, 3);
+			
+			g2.setColor(prevColor);
+		}
+		
 		AffineTransform transformer = g2.getTransform();
 		// set origin to center of the drawingboard
 		transformer.translate(super.getWidth() / 2 + translateX, super.getHeight() / 2 + translateY);
@@ -70,12 +99,6 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		
 		
 		g2.setTransform(transformer);
-		
-		// draw with sub-pixel precision
-		g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_PURE);
-		
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		polygon.draw(g2);
 	}
@@ -235,5 +258,8 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		return translateX;
 	}
 	
-	
+	public void toggleAxisDraw() {
+		drawAxis = !drawAxis;
+		update(ObserverConstants.DRAWBOARD_REPAINT);
+	}
 }
