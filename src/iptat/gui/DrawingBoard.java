@@ -149,7 +149,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	}
 	
 	private boolean incrementScaleX(double amount) {
-		if (scaleX + amount > 0) {
+		if (scaleX + amount >= 0.1) {
 			scaleX += amount;
 			return true;
 		}
@@ -158,7 +158,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	}
 	
 	private boolean incrementScaleY(double amount) {
-		if (scaleY + amount > 0) {
+		if (scaleY + amount >= 0.1) {
 			scaleY += amount;
 			return true;
 		}
@@ -167,10 +167,9 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	}
 	
 	public boolean incrementScale(double amount) {
-		if (scaleX + amount > 0 && scaleY + amount > 0) {
+		if (scaleX + amount >= 0.1 && scaleY + amount >= 0.1) {
 			incrementScaleX(amount);
 			incrementScaleY(amount);
-			System.out.println(scaleX);
 		}
 		
 		return false;
