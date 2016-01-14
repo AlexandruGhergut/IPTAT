@@ -93,4 +93,9 @@ public class CommandGenerator {
 		robot.keyPress(KeyEvent.VK_F1);
 		robot.keyRelease(KeyEvent.VK_F1);
 	}
+	
+	public void triggerTranslate() {
+		robot.keyPress(KeyEvent.VK_F2);
+		robot.keyRelease(KeyEvent.VK_F2);
+	}
 }

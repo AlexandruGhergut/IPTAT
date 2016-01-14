@@ -209,7 +209,14 @@ public class Toolbar extends JToolBar {
 		translate.setImage(getResizedImage(translate.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton translateButton = new JButton(translate);
 		super.add(translateButton);
-		
+		translateButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				commandGenerator.triggerTranslate();
+			}
+			
+		});
 		
 	}
 	

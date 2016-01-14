@@ -51,46 +51,6 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		setTranslateX(0);
 		setTranslateY(0);
 	}
-	
-	public double getScaleX() {
-		return scaleX;
-	}
-	
-	public double getScaleY() {
-		return scaleY;
-	}
-	
-	public boolean setScaleX(double amount) {
-		return incrementScaleX(-scaleX + amount);
-	}
-	
-	public boolean setScaleY(double amount) {
-		return incrementScaleY(-scaleY + amount);
-	}
-	
-	public boolean setScale(double amount) {
-		if (amount >= 0.1) {
-			setScaleX(amount);
-			setScaleY(amount);
-			return true;
-		}
-		
-		return false;
-	}
-	
-	public void setTranslateX(double translateX) {
-		this.translateX = translateX;
-		update(ObserverConstants.DRAWBOARD_REPAINT);
-	}
-
-	public void setTranslateY(double translateY) {
-		this.translateY = translateY;
-		update(ObserverConstants.DRAWBOARD_REPAINT);
-	}
-
-	public double getTranslateX() {
-		return translateX;
-	}
 
 	public double getTranslateY() {
 		return translateY;
@@ -168,7 +128,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	}
 	
 	public boolean incrementScaleX(double amount) {
-		if (scaleX + amount >= 0.1) {
+		if (scaleX + amount >= 0.09) {
 			scaleX += amount;
 			update(ObserverConstants.DRAWBOARD_REPAINT);
 			
@@ -183,7 +143,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	}
 	
 	public boolean incrementScaleY(double amount) {
-		if (scaleY + amount >= 0.1) {
+		if (scaleY + amount >= 0.09) {
 			scaleY += amount;
 			update(ObserverConstants.DRAWBOARD_REPAINT);
 			
@@ -198,7 +158,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	}
 	
 	public boolean incrementScale(double amount) {
-		if (scaleX + amount >= 0.1 && scaleY + amount >= 0.1) {
+		if (scaleX + amount >= 0.09 && scaleY + amount >= 0.09) {
 			incrementScaleX(amount);
 			incrementScaleY(amount);
 		}
@@ -233,4 +193,46 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	public boolean decrementScale() {
 		return decrementScale(ZOOM_FACTOR);
 	}
+	
+	public boolean setScaleX(double amount) {
+		return incrementScaleX(-scaleX + amount);
+	}
+	
+	public boolean setScaleY(double amount) {
+		return incrementScaleY(-scaleY + amount);
+	}
+	
+	public boolean setScale(double amount) {
+		if (amount >= 0.1) {
+			setScaleX(amount);
+			setScaleY(amount);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public double getScaleX() {
+		return scaleX;
+	}
+	
+	public double getScaleY() {
+		return scaleY;
+	}
+	
+	public void setTranslateX(double translateX) {
+		this.translateX = translateX;
+		update(ObserverConstants.DRAWBOARD_REPAINT);
+	}
+
+	public void setTranslateY(double translateY) {
+		this.translateY = translateY;
+		update(ObserverConstants.DRAWBOARD_REPAINT);
+	}
+
+	public double getTranslateX() {
+		return translateX;
+	}
+	
+	
 }

@@ -1,5 +1,6 @@
 package iptat.handlers;
 
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.util.Scanner;
@@ -7,10 +8,16 @@ import java.util.Scanner;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 
 import com.sun.glass.events.KeyEvent;
 
@@ -169,17 +176,57 @@ public class KeyBindingsHandler {
 		Action zoom = new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
 				String line = JOptionPane.showInputDialog(null, "Set zoom level to (in percentage): ", 
-						"Set zoom level", JOptionPane.PLAIN_MESSAGE);
+						"Set Zoom Level", JOptionPane.PLAIN_MESSAGE);
 				
 				if (line == null)
 					return;
 				
-				if (drawingBoard.setScale(Double.parseDouble(line)) != false)
+				if (drawingBoard.setScale(Double.parseDouble(line) / 100) != false)
 					System.out.println("False");
 			}
 		};
 		
 		inputMap.put(KeyStroke.getKeyStroke("F1"), "zoom");
 		actionMap.put("zoom", zoom);
+		
+		
+		JPanel translatePanel = new JPanel();
+		BoxLayout panelLayout = new BoxLayout(translatePanel, BoxLayout.PAGE_AXIS);
+		translatePanel.setLayout(panelLayout);
+		
+		translatePanel.add(new JLabel("Translate X by: "));
+		JTextField xField = new JTextField(20);
+		translatePanel.add(xField);
+		
+		translatePanel.add(new JLabel("Translate Y by: "));
+		JTextField yField = new JTextField(20);
+		translatePanel.add(yField);
+
+		Action translate = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				xField.setText("");
+				yField.setText("");
+				int answer = JOptionPane.showConfirmDialog(null, translatePanel, 
+						"Set Translation", JOptionPane.OK_CANCEL_OPTION);
+				
+				if (answer == JOptionPane.OK_OPTION) {
+					double x = 0, y = 0;
+					
+					try {
+						x = Double.parseDouble(xField.getText());
+						y = Double.parseDouble(yField.getText());
+					} catch (NullPointerException | NumberFormatException exc) {
+						x = 0;
+						y = 0;
+					} finally {
+						drawingBoard.setTranslateX(drawingBoard.getTranslateX() + x);
+						drawingBoard.setTranslateY(drawingBoard.getTranslateY() - y);
+					}
+				}
+			}
+		};
+		
+		inputMap.put(KeyStroke.getKeyStroke("F2"), "translate");
+		actionMap.put("translate", translate);
 	}
 }
