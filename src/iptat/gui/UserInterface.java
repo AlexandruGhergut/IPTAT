@@ -25,8 +25,10 @@ public class UserInterface implements Runnable {
 		if (!settings.exists()) {
 			String line = "Hello there!\n" + 
 						"It looks like this is the first time you're running this application.\n" +
-						"Please note that the polygon points should be provided in a COUNTERCLOCKWISE order; " +
-						"otherwise the triangulation will not work.";
+						"Note: If the polygon vertices are not provided in a counterclockwise order, "+
+			"the algorithm will reverse their order!\n"
+			+ "If you need extra information you can check the help button,"
+			+ " on the right side of the toolbar.";
 			JOptionPane.showMessageDialog(null, line);
 			try {
 				settings.getParentFile().mkdirs();
