@@ -20,6 +20,8 @@ import iptat.util.Subject;
 
 public class DrawingBoard extends JPanel implements Subject, Observer {
 	
+	private final double ZOOM_FACTOR;
+	
 	private List<Observer> observers;
 	
 	private Polygon2D polygon;
@@ -30,6 +32,8 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	private double translateY;
 	
 	public DrawingBoard() {
+		ZOOM_FACTOR = 0.1;
+		
 		super.setBackground(Color.WHITE);
 		
 		observers = new ArrayList<Observer>();
@@ -42,8 +46,10 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		KeyBindingsHandler.init(this);
 		
 		cursorPosition = new Point2D.Double(0, 0);
-		scaleX = scaleY = 1;	
-		translateX = translateY = 0;
+		setScaleX(1);
+		setScaleY(1);
+		setTranslateX(0);
+		setTranslateY(0);
 	}
 	
 	public double getScaleX() {
@@ -55,19 +61,21 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	}
 	
 	public void setScaleX(double amount) {
-		scaleX = amount;
+		incrementScaleX(-scaleX + amount);
 	}
 	
 	public void setScaleY(double amount) {
-		scaleY = amount;
+		incrementScaleY(-scaleY + amount);
 	}
 	
 	public void setTranslateX(double translateX) {
 		this.translateX = translateX;
+		update(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 
 	public void setTranslateY(double translateY) {
 		this.translateY = translateY;
+		update(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 
 	public double getTranslateX() {
@@ -146,24 +154,37 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 	
 	public void setCursorPosition(Point2D.Double point) {
 		cursorPosition = point;
+		update(ObserverConstants.CURSOR_POS_UPDATE);
 	}
 	
-	private boolean incrementScaleX(double amount) {
+	public boolean incrementScaleX(double amount) {
 		if (scaleX + amount >= 0.1) {
 			scaleX += amount;
+			update(ObserverConstants.DRAWBOARD_REPAINT);
+			
 			return true;
 		}
 		
 		return false;
 	}
 	
-	private boolean incrementScaleY(double amount) {
+	public boolean incrementScaleX() {
+		return incrementScaleX(ZOOM_FACTOR);
+	}
+	
+	public boolean incrementScaleY(double amount) {
 		if (scaleY + amount >= 0.1) {
 			scaleY += amount;
+			update(ObserverConstants.DRAWBOARD_REPAINT);
+			
 			return true;
 		}
 		
 		return false;
+	}
+	
+	public boolean incrementScaleY() {
+		return incrementScaleY(ZOOM_FACTOR);
 	}
 	
 	public boolean incrementScale(double amount) {
@@ -175,15 +196,31 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		return false;
 	}
 	
+	public boolean incrementScale() {
+		return incrementScale(ZOOM_FACTOR);
+	}
+	
 	public boolean decrementScaleX(double amount) {
 		return incrementScaleX(-amount);
+	}
+	
+	public boolean decrementScaleX() {
+		return decrementScaleX(ZOOM_FACTOR);
 	}
 	
 	public boolean decrementScaleY(double amount) {
 		return incrementScaleY(-amount);
 	}
 	
+	public boolean decrementScaleY() {
+		return decrementScaleY(ZOOM_FACTOR);
+	}
+	
 	public boolean decrementScale(double amount) {
 		return incrementScale(-amount);
+	}
+	
+	public boolean decrementScale() {
+		return decrementScale(ZOOM_FACTOR);
 	}
 }

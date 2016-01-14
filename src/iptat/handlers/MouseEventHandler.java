@@ -15,8 +15,6 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Mo
 	private DrawingBoard drawingBoard;
 	private MouseEvent lastPress; 
 	
-	private final double ZOOM_FACTOR;
-	
 	private double currentTranslateX;
 	private double currentTranslateY;
 	
@@ -29,8 +27,6 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Mo
 	}
 	
 	public MouseEventHandler(DrawingBoard drawingBoard) {
-		ZOOM_FACTOR = 0.1;
-		
 		this.drawingBoard = drawingBoard;
 		currentTranslateX = currentTranslateY = 0;
 	}
@@ -52,8 +48,6 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Mo
 	public void mouseReleased(MouseEvent e) {
 		drawingBoard.setTranslateX(currentTranslateX + e.getX() - lastPress.getX());
 		drawingBoard.setTranslateY(currentTranslateY + e.getY() - lastPress.getY());
-		
-		drawingBoard.update(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 
 	@Override
@@ -68,24 +62,19 @@ public class MouseEventHandler implements MouseListener, MouseMotionListener, Mo
 	public void mouseDragged(MouseEvent e) {
 		drawingBoard.setTranslateX(currentTranslateX + e.getX() - lastPress.getX());
 		drawingBoard.setTranslateY(currentTranslateY + e.getY() - lastPress.getY());
-		
-		drawingBoard.update(ObserverConstants.DRAWBOARD_REPAINT);
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		drawingBoard.setCursorPosition(getPointOnBoard(e));
-		drawingBoard.update(ObserverConstants.CURSOR_POS_UPDATE);
 	}
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() < 0)
-			drawingBoard.incrementScale(ZOOM_FACTOR);
+			drawingBoard.incrementScale();
 		else
-			drawingBoard.decrementScale(ZOOM_FACTOR);
-		
-		drawingBoard.update(ObserverConstants.DRAWBOARD_REPAINT);
+			drawingBoard.decrementScale();
 	}
 
 }
