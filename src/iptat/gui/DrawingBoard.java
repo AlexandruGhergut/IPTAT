@@ -18,6 +18,7 @@ import iptat.util.ObserverConstants;
 import iptat.util.Polygon2D;
 import iptat.util.Subject;
 
+@SuppressWarnings("serial")
 public class DrawingBoard extends JPanel implements Subject, Observer {
 	
 	private final double ZOOM_FACTOR;

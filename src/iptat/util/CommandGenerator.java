@@ -3,8 +3,6 @@ package iptat.util;
 import java.awt.AWTException;
 import java.awt.Robot;
 
-import javax.swing.JOptionPane;
-
 import com.sun.glass.events.KeyEvent;
 
 public class CommandGenerator {

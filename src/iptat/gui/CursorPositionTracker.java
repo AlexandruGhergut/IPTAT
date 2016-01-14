@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 
 import iptat.util.Observer;
 
+@SuppressWarnings("serial")
 public class CursorPositionTracker extends JLabel implements Observer {
 	
 	private DrawingBoard drawingBoard;

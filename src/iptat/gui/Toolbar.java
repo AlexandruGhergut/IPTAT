@@ -14,6 +14,7 @@ import javax.swing.JToolBar;
 
 import iptat.util.CommandGenerator;
 
+@SuppressWarnings("serial")
 public class Toolbar extends JToolBar {
 	
 	private final int IMAGE_SIZE = 16;

@@ -8,7 +8,6 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 
 import iptat.gui.DrawingBoard;
-import iptat.util.ObserverConstants;
 
 public class MouseEventHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
 	

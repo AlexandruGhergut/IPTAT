@@ -1,7 +1,5 @@
 package iptat.gui;
 
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,24 +14,16 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.sun.glass.events.KeyEvent;
-
 import iptat.util.CommandGenerator;
 
+@SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
 	
-	private Robot robot;
 	private JFrame frame;
 	private CommandGenerator commandGenerator;
 	
 	public MenuBar(JFrame frame) {
 		this.frame = frame;
-		
-		try {
-			robot = new Robot();
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
 		
 		commandGenerator = CommandGenerator.getInstance();
 		addFileMenu();

@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import iptat.util.Observer;
 import iptat.util.ObserverConstants;
 
+@SuppressWarnings("serial")
 public class PolygonPointCounter extends JLabel implements Observer {
 
 	private DrawingBoard drawingBoard;

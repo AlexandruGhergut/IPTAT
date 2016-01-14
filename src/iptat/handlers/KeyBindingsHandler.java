@@ -1,6 +1,5 @@
 package iptat.handlers;
 
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.util.Scanner;
@@ -8,7 +7,6 @@ import java.util.Scanner;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
@@ -17,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
+
 
 import com.sun.glass.events.KeyEvent;
 
@@ -26,6 +24,7 @@ import iptat.util.EarCutter;
 import iptat.util.Polygon2D;
 import iptat.util.Polygon2DFileIO;
 
+@SuppressWarnings("serial")
 public class KeyBindingsHandler {
 	
 	private KeyBindingsHandler() {
