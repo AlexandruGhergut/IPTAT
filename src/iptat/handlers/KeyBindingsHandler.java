@@ -165,5 +165,21 @@ public class KeyBindingsHandler {
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, InputEvent.CTRL_DOWN_MASK), "zoomOut");
 		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, InputEvent.CTRL_DOWN_MASK), "zoomOut");
 		actionMap.put("zoomOut", zoomOut);
+		
+		Action zoom = new AbstractAction() {
+			public void actionPerformed(ActionEvent e) {
+				String line = JOptionPane.showInputDialog(null, "Set zoom level to (in percentage): ", 
+						"Set zoom level", JOptionPane.PLAIN_MESSAGE);
+				
+				if (line == null)
+					return;
+				
+				if (drawingBoard.setScale(Double.parseDouble(line)) != false)
+					System.out.println("False");
+			}
+		};
+		
+		inputMap.put(KeyStroke.getKeyStroke("F1"), "zoom");
+		actionMap.put("zoom", zoom);
 	}
 }

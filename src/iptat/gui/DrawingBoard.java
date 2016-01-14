@@ -60,12 +60,22 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		return scaleY;
 	}
 	
-	public void setScaleX(double amount) {
-		incrementScaleX(-scaleX + amount);
+	public boolean setScaleX(double amount) {
+		return incrementScaleX(-scaleX + amount);
 	}
 	
-	public void setScaleY(double amount) {
-		incrementScaleY(-scaleY + amount);
+	public boolean setScaleY(double amount) {
+		return incrementScaleY(-scaleY + amount);
+	}
+	
+	public boolean setScale(double amount) {
+		if (amount >= 0.1) {
+			setScaleX(amount);
+			setScaleY(amount);
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void setTranslateX(double translateX) {

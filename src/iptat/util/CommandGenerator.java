@@ -3,6 +3,8 @@ package iptat.util;
 import java.awt.AWTException;
 import java.awt.Robot;
 
+import javax.swing.JOptionPane;
+
 import com.sun.glass.events.KeyEvent;
 
 public class CommandGenerator {
@@ -71,5 +73,24 @@ public class CommandGenerator {
 	public void triggerTriangulate() {
 		robot.keyPress(KeyEvent.VK_T);
 		robot.keyRelease(KeyEvent.VK_T);
+	}
+	
+	public void triggerZoomIn() {
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		robot.keyPress(KeyEvent.VK_ADD);
+		robot.keyRelease(KeyEvent.VK_CONTROL);
+		robot.keyRelease(KeyEvent.VK_ADD);
+	}
+	
+	public void triggerZoomOut() {
+		robot.keyPress(KeyEvent.VK_CONTROL);
+		robot.keyPress(KeyEvent.VK_SUBTRACT);
+		robot.keyRelease(KeyEvent.VK_CONTROL);
+		robot.keyRelease(KeyEvent.VK_SUBTRACT);
+	}
+	
+	public void triggerZoom() {
+		robot.keyPress(KeyEvent.VK_F1);
+		robot.keyRelease(KeyEvent.VK_F1);
 	}
 }

@@ -23,11 +23,17 @@ public class Toolbar extends JToolBar {
 		commandGenerator=CommandGenerator.getInstance();
 		
 		super.setFloatable(false);
+		
 		addFileButtons();
 		super.addSeparator();
+		
 		addEditButtons();
 		super.addSeparator();
+		
 		addTriangulationButton();
+		super.addSeparator();
+		
+		addAffineTransformButtons();
 		
 		super.add(Box.createHorizontalGlue());
 		addHelpButton();
@@ -154,6 +160,57 @@ public class Toolbar extends JToolBar {
 			}
 		});
 		triangulationButton.setToolTipText("Triangulate (T)");
+	}
+	
+	private void addAffineTransformButtons() {
+		ImageIcon zoomIn = new ImageIcon("res/img/zoomIn.png");
+		zoomIn.setImage(getResizedImage(zoomIn.getImage(), IMAGE_SIZE, IMAGE_SIZE));
+		JButton zoomInButton = new JButton(zoomIn);
+		super.add(zoomInButton);
+		zoomInButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				commandGenerator.triggerZoomIn();
+			}
+			
+		});
+		zoomInButton.setToolTipText("Zoom In");
+		
+		ImageIcon zoomOut = new ImageIcon("res/img/zoomOut.png");
+		zoomOut.setImage(getResizedImage(zoomOut.getImage(), IMAGE_SIZE, IMAGE_SIZE));
+		JButton zoomOutButton = new JButton(zoomOut);
+		super.add(zoomOutButton);
+		zoomOutButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				commandGenerator.triggerZoomOut();
+			}
+			
+		});
+		zoomOutButton.setToolTipText("Zoom Out");
+		
+		ImageIcon zoom = new ImageIcon("res/img/zoom.png");
+		zoom.setImage(getResizedImage(zoom.getImage(), IMAGE_SIZE, IMAGE_SIZE));
+		JButton zoomButton = new JButton(zoom);
+		super.add(zoomButton);
+		zoomButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				commandGenerator.triggerZoom();
+			}
+			
+		});
+		zoomButton.setToolTipText("Zoom");
+		
+		ImageIcon translate = new ImageIcon("res/img/translate.png");
+		translate.setImage(getResizedImage(translate.getImage(), IMAGE_SIZE, IMAGE_SIZE));
+		JButton translateButton = new JButton(translate);
+		super.add(translateButton);
+		
+		
 	}
 	
 	private	Image getResizedImage(Image src, int width, int height) {
