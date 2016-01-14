@@ -131,11 +131,11 @@ public class Toolbar extends JToolBar {
 			"1. You can click on the drawing board for each vertex you want to add to your polygon;\n"+
 			"2. You can load a file containing the coordinates of a polygon vertex on each line;\n"+
 			"3. You can use the \"Add Points (Ctrl+A)\" button;\n"+
-			"Note: if the polygon vertices are not provided in a counter-clockwise order, "+
+			"Note: if the polygon vertices are not provided in a counterclockwise order, "+
 			"the algorithm will reverse their order!\n"+
 			"There are two available affine transformations:\n"
-			+ "1. Zoom( by scrolling the mouse wheel;\n"
-			+ "2. Translation( by dragging your mouse while pressing its left button;");
+			+ "1. Zoom (by scrolling the mouse wheel);\n"
+			+ "2. Translation (by dragging your mouse while pressing its left button);");
 			}
 			
 		});
