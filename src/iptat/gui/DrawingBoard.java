@@ -73,7 +73,7 @@ public class DrawingBoard extends JPanel implements Subject, Observer {
 		if (drawAxis) {
 			Color prevColor = g2.getColor();
 			
-			g2.setColor(Color.GRAY);
+			g2.setColor(Color.BLUE);
 			g2.drawLine(0, super.getHeight() / 2, super.getWidth(), super.getHeight() / 2);
 			g2.drawLine(super.getWidth() / 2, 0, super.getWidth() / 2, super.getHeight());
 			g2.fillOval(super.getWidth() / 2 - 3, super.getHeight() / 2 - 3, 6, 6);
