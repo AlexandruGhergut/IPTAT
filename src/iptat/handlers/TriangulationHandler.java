@@ -4,7 +4,6 @@ import java.awt.geom.Point2D;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import iptat.util.Polygon2D;

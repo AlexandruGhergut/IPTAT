@@ -41,7 +41,7 @@ public class Toolbar extends JToolBar {
 	}
 	
 	private void addFileButtons() {
-		ImageIcon load = new ImageIcon("res/img/open.png");
+		ImageIcon load = new ImageIcon(getClass().getResource("/res/img/open.png"));
 		load.setImage(getResizedImage(load.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton loadPolygon = new JButton(load);
 		super.add(loadPolygon);
@@ -54,7 +54,7 @@ public class Toolbar extends JToolBar {
 		});
 		loadPolygon.setToolTipText("Load Polygon (Ctrl+O)");
 		
-		ImageIcon save = new ImageIcon("res/img/save.png");
+		ImageIcon save = new ImageIcon(getClass().getResource("/res/img/save.png"));
 		save.setImage(getResizedImage(save.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton savePolygon = new JButton(save);
 		super.add(savePolygon);
@@ -69,7 +69,7 @@ public class Toolbar extends JToolBar {
 	}
 	
 	private void addEditButtons(){
-		ImageIcon add = new ImageIcon("res/img/add.png");
+		ImageIcon add = new ImageIcon(getClass().getResource("/res/img/add.png"));
 		add.setImage(getResizedImage(add.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton addPoints = new JButton(add);
 		super.add(addPoints);
@@ -82,7 +82,7 @@ public class Toolbar extends JToolBar {
 		});
 		addPoints.setToolTipText("Add Points (Ctrl+A)");
 		
-		ImageIcon delete = new ImageIcon("res/img/clear.png");
+		ImageIcon delete = new ImageIcon(getClass().getResource("/res/img/clear.png"));
 		delete.setImage(getResizedImage(delete.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton deletePoints = new JButton(delete);
 		super.add(deletePoints);
@@ -95,7 +95,7 @@ public class Toolbar extends JToolBar {
 		});
 		deletePoints.setToolTipText("Reset (R)");
 		
-		ImageIcon undo = new ImageIcon("res/img/undo.png");
+		ImageIcon undo = new ImageIcon(getClass().getResource("/res/img/undo.png"));
 		undo.setImage(getResizedImage(undo.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton undoButton = new JButton(undo);
 		super.add(undoButton);
@@ -108,7 +108,7 @@ public class Toolbar extends JToolBar {
 		});
 		undoButton.setToolTipText("Undo (Ctrl+Z)");
 		
-		ImageIcon redo = new ImageIcon("res/img/redo.png");
+		ImageIcon redo = new ImageIcon(getClass().getResource("/res/img/redo.png"));
 		redo.setImage(getResizedImage(redo.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton redoButton = new JButton(redo);
 		super.add(redoButton);
@@ -124,7 +124,7 @@ public class Toolbar extends JToolBar {
 	}
 	
 	private void addHelpButton(){
-		ImageIcon help = new ImageIcon("res/img/help.png");
+		ImageIcon help = new ImageIcon(getClass().getResource("/res/img/help.png"));
 		help.setImage(getResizedImage(help.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton helpButton = new JButton(help);
 		super.add(helpButton);
@@ -149,7 +149,7 @@ public class Toolbar extends JToolBar {
 		helpButton.setToolTipText("Help");
 	}
 	private void addTriangulationButton(){
-		ImageIcon triangulation = new ImageIcon("res/img/triangle.png");
+		ImageIcon triangulation = new ImageIcon(getClass().getResource("/res/img/triangle.png"));
 		triangulation.setImage(getResizedImage(triangulation.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton triangulationButton = new JButton(triangulation);
 		super.add(triangulationButton);
@@ -164,7 +164,7 @@ public class Toolbar extends JToolBar {
 	}
 	
 	private void addAffineTransformButtons() {
-		ImageIcon zoomIn = new ImageIcon("res/img/zoomIn.png");
+		ImageIcon zoomIn = new ImageIcon(getClass().getResource("/res/img/zoomIn.png"));
 		zoomIn.setImage(getResizedImage(zoomIn.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton zoomInButton = new JButton(zoomIn);
 		super.add(zoomInButton);
@@ -178,7 +178,7 @@ public class Toolbar extends JToolBar {
 		});
 		zoomInButton.setToolTipText("Zoom In");
 		
-		ImageIcon zoomOut = new ImageIcon("res/img/zoomOut.png");
+		ImageIcon zoomOut = new ImageIcon(getClass().getResource("/res/img/zoomOut.png"));
 		zoomOut.setImage(getResizedImage(zoomOut.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton zoomOutButton = new JButton(zoomOut);
 		super.add(zoomOutButton);
@@ -192,7 +192,7 @@ public class Toolbar extends JToolBar {
 		});
 		zoomOutButton.setToolTipText("Zoom Out");
 		
-		ImageIcon zoom = new ImageIcon("res/img/zoom.png");
+		ImageIcon zoom = new ImageIcon(getClass().getResource("/res/img/zoom.png"));
 		zoom.setImage(getResizedImage(zoom.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton zoomButton = new JButton(zoom);
 		super.add(zoomButton);
@@ -206,7 +206,7 @@ public class Toolbar extends JToolBar {
 		});
 		zoomButton.setToolTipText("Zoom");
 		
-		ImageIcon translate = new ImageIcon("res/img/translate.png");
+		ImageIcon translate = new ImageIcon(getClass().getResource("/res/img/translate.png"));
 		translate.setImage(getResizedImage(translate.getImage(), IMAGE_SIZE, IMAGE_SIZE));
 		JButton translateButton = new JButton(translate);
 		super.add(translateButton);
