@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EarCutter implements Triangulator {
+	
+	private static final double EPS = 10e-9;
 	private List<List<Point2D.Double>> triangles;
 
 	public List<List<Point2D.Double>> getTriangulation(Polygon2D polygon) {
@@ -33,7 +35,7 @@ public class EarCutter implements Triangulator {
 					double b = Math.abs(getDet2(pointB, points.get(i), pointC));
 					double c = Math.abs(getDet2(pointC, points.get(i), pointA));
 					
-					if (delta == (a + b + c)) {
+					if (Math.abs(delta - (a + b + c)) < EPS) {
 						// the current point is included in the triangle
 						// pointB is a non-principal vertex
 						flag = false;
